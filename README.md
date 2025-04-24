@@ -49,19 +49,18 @@ Threat modelling conducted using **IriusRisk** helped identify and mitigate:
 
 ##  Setup Instructions
 
-# 1. Clone the repository
+ **1. Clone the repository**
 git clone https://github.com/aurangzebhatti/SSD_Project
 
-# 2. Install dependencies
+ **2. Install dependencies**
 npm install
 
-# 3. Configure database (MySQL or Postgres)
-# Run the database.sql script in your MySQL
+**3. Configure database (MySQL or Postgres)**
+ Run the database.sql script in your MySQL
 
-# 4. Start the server
+**4. Start the server**
 node server.js
 
----
 
 ##  Notes
 
