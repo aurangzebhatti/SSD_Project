@@ -6,20 +6,16 @@
 
 A secure and scalable Warehouse Management System built using **Node.js**,**Flask**,**MySQL**, and modern cybersecurity practices. This project ensures **data integrity**, **access control**, and **audit traceability** across the system.
 
----
-
 ##  Key Security Features
 
-- ✅ **Multi-Factor Authentication (MFA)**
-- ✅ **Password Hashing** with bcrypt
-- ✅ **JWT-based Authentication** for session security
-- ✅ **AES-256 Encryption** for sensitive inventory data
-- ✅ **Input Validation & Sanitization**
-- ✅ **Role-Based Access Control (RBAC)**
-- ✅ **HTTPS Communication**
-- ✅ **Audit Logging** of all sensitive actions
-
----
+-  **Multi-Factor Authentication (MFA)**
+-  **Password Hashing** with bcrypt
+-  **JWT-based Authentication** for session security
+-  **AES-256 Encryption** for sensitive inventory data
+-  **Input Validation & Sanitization**
+-  **Role-Based Access Control (RBAC)**
+-  **HTTPS Communication**
+-  **Audit Logging** of all sensitive actions
 
 ##  Threat Modelling
 
@@ -32,7 +28,6 @@ Threat modelling conducted using **IriusRisk** helped identify and mitigate:
 | Privilege Escalation     | Role-based access control (RBAC)            |
 | Session Hijacking        | JWT + Secure Cookies + Session expiry       |
 
----
 
 ##  System Architecture
 
@@ -52,16 +47,15 @@ Threat modelling conducted using **IriusRisk** helped identify and mitigate:
 
 ---
 
-## ⚙️ Setup Instructions
+##  Setup Instructions
 
-```bash
 # 1. Clone the repository
 git clone https://github.com/aurangzebhatti/SSD_Project
 
 # 2. Install dependencies
 npm install
 
-# 3. Configure database (MySQL)
+# 3. Configure database (MySQL or Postgres)
 # Run the database.sql script in your MySQL
 
 # 4. Start the server
@@ -77,7 +71,7 @@ node server.js
 
 ---
 
-## 💡 Future Improvements
+##  Future Improvements
 
 - Build a fully responsive frontend with **React**
 - Integrate secure file uploads (e.g., invoices, stock images)
