@@ -11,9 +11,41 @@ const Signup = () => {
   const [name,setName]=useState('');
   const [email,setEmail]=useState('');
   const [password,setPassword]=useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const validatePassword = (password) => {
+    if (password.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+    if (!/[A-Z]/.test(password)) {
+      return 'Password must contain at least one uppercase letter';
+    }
+    if (!/[a-z]/.test(password)) {
+      return 'Password must contain at least one lowercase letter';
+    }
+    if (!/[0-9]/.test(password)) {
+      return 'Password must contain at least one number';
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      return 'Password must contain at least one special character';
+    }
+    return '';
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setPasswordError(validatePassword(newPassword));
+  };
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    
+    const passwordValidationError = validatePassword(password);
+    if (passwordValidationError) {
+      setPasswordError(passwordValidationError);
+      return;
+    }
   
     try {
       const res = await axios.post(
@@ -23,9 +55,9 @@ const Signup = () => {
       );
   
       if(res.data.exitsEmail){
-      alert(res.data.message); // Should say "Verification code sent"
+        alert(res.data.message); // Should say "Verification code sent"
       }else{
-      navigate('/verify');
+        navigate('/verify');
       }
     } catch (err) {
       console.error(err);
@@ -68,11 +100,14 @@ const Signup = () => {
             <input
               type="password"
               name="password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               placeholder="Password"
               required
               className="p-2 rounded bg-white text-black"
             />
+            {passwordError && (
+              <p className="text-red-500 text-sm mt-1">{passwordError}</p>
+            )}
           </div>
 
           <div className="flex items-center space-x-2">
@@ -85,6 +120,7 @@ const Signup = () => {
           <button
             type="submit"
             className="bg-green-500 hover:bg-green-600 p-2 rounded font-bold cursor-pointer"
+            disabled={!!passwordError}
           >
             Register
           </button>

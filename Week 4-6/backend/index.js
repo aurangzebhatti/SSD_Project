@@ -78,6 +78,15 @@ app.get('/home', (req, res) => {
 app.post('/signup', (req, res) => {
   const { name, email, password } = req.body;
 
+  // Password validation
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
+  if (!passwordRegex.test(password)) {
+    return res.status(400).json({ 
+      message: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
+      exitsEmail: false 
+    });
+  }
+
   const checkEmailSql = 'SELECT * FROM users WHERE email = ?';
   db.query(checkEmailSql, [email], (err, results) => {
     if (err) {
@@ -89,14 +98,11 @@ app.post('/signup', (req, res) => {
       return res.json({ message: 'Email already registered. Please log in.' ,exitsEmail: true});
     }
 
-  const code = crypto.randomInt(100000, 999999).toString();
-
-  req.session.verification = { email, name, password, code };
-
-  verificationEmail(email, code);
-
-  res.status(200).json({ message: 'Verification code sent to email' ,exitsEmail: false});
-});
+    const code = crypto.randomInt(100000, 999999).toString();
+    req.session.verification = { email, name, password, code };
+    verificationEmail(email, code);
+    res.status(200).json({ message: 'Verification code sent to email' ,exitsEmail: false});
+  });
 });
 
 app.post('/verify', async (req, res) => {
